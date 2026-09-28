@@ -1,0 +1,23 @@
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      glob: "*.py"
+      run: uv run ruff check {staged_files} && uv run ruff format --check {staged_files}
+    types:
+      glob: "*.py"
+      run: uv run mypy
+
+# Conventional Commits (a versão sai do histórico de commits).
+commit-msg:
+  commands:
+    # Todo commit deste repositório sai com o e-mail pessoal.
+    author-email:
+      run: |
+        email=$(git config user.email)
+        if [ "$email" != "eldevanjr@gmail.com" ]; then
+          echo "E-mail de commit '$email' não permitido. Rode: git config user.email eldevanjr@gmail.com"
+          exit 1
+        fi
+    commitlint:
+      run: pnpm exec commitlint --edit {1}

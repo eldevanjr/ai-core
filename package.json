@@ -1,0 +1,14 @@
+{
+  "name": "ai-core-hooks",
+  "private": true,
+  "description": "Só as ferramentas dos hooks de git (lefthook + commitlint); a biblioteca é Python (uv).",
+  "scripts": {
+    "prepare": "lefthook install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "lefthook": "^2.1.14"
+  },
+  "packageManager": "pnpm@12.6.0"
+}

@@ -1,0 +1,57 @@
+[project]
+name = "ai-core"
+version = "0.2.0"
+description = "Biblioteca comum de contratos e abstrações de IA do ecossistema Whisper Transcriber + AI Work Analyzer"
+readme = "README.md"
+license = "Apache-2.0"
+authors = [{ name = "Eldevan Nery Junior" }]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "pydantic>=2.9,<3",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ai_core"]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "ruff>=0.8",
+  "mypy>=1.13",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "C90", "SIM", "RUF", "PT"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 9
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106"]
+
+[tool.mypy]
+strict = true
+plugins = ["pydantic.mypy"]
+files = ["src", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=ai_core --cov-branch --cov-report=term-missing --cov-fail-under=100"
+
+[tool.coverage.report]
+exclude_also = [
+  "if TYPE_CHECKING:",
+  "if __name__ == \"__main__\":",
+  "raise NotImplementedError",
+  "@(abc\\.)?abstractmethod",
+]
